@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>分类管理</title>
+    <link th:href="@{/css/bootstrap4.min.css}" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap4.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid mt-2">
+    <a th:href="@{/category/add}" class="btn btn-danger mb-2">添加顶级分类</a>
+    <ul class="list-group big" th:each="big:${categoryList}" style="cursor:pointer">
+        <li class="list-group-item big list-group-item-info d-flex justify-content-start" th:data_id="${big.cateId}">
+            <div th:text="${big.cateSort}">1</div>
+            <div class="ml-5" th:text="'[ '+${big.cateId}+' ] '+${big.cateName}">[1]家用电器</div>
+            <div class="btn-group btn-group-sm ml-auto">
+                <button class="btn btn-light btn-add-category">添加子分类</button>
+                <button class="btn btn-primary">编辑</button>
+                <button class="btn btn-danger">删除</button>
+            </div>
+        </li>
+        <ul class="list-group mid" style="display:none;">
+            <li class="list-group-item mid list-group-item-success d-flex justify-content-start">
+                <div class="ml-2 cate_sort">1</div>
+                <div class="ml-5 cate_name">[1]家用电器</div>
+                <div class="btn-group btn-group-sm ml-auto">
+                    <button class="btn btn-light btn-add-category">添加子分类</button>
+                    <button class="btn btn-primary">编辑</button>
+                    <button class="btn btn-danger">删除</button>
+                </div>
+            </li>
+            <ul class="list-group mini" style="display:none;">
+                <li class="list-group-item mini list-group-item-light d-flex justify-content-start">
+                    <div class="ml-4 cate_sort">1</div>
+                    <div class="ml-5 cate_name">[1]家用电器</div>
+                    <div class="btn-group btn-group-sm ml-auto">
+                        <button class="btn btn-primary">编辑</button>
+                        <button class="btn btn-danger">删除</button>
+                    </div>
+                </li>
+            </ul>
+        </ul>
+    </ul>
+
+
+    <div style="margin-top:100px;"></div>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var context = /*[[@{/}]]*/;
+        /*]]>*/
+    </script>
+    <script  th:inline="javascript">
+        $(document).ready(function(){
+            $(".btn-add-category").click(function(){
+                let pid = $(this).parent().parent().attr("data_id");
+                location.href="add?pid="+pid;
+                event.stopPropagation();
+            });
+            $(".btn-add").click(function(){
+                location.href=context+"brand/add";
+            });
+            $(".list-group-item.big").click(function(){
+                if( $(this).hasClass("expand") ){
+                    $(this).nextAll(".list-group.mid").slideUp(300);
+                    $(this).removeClass("expand");
+                }else{
+                    if( ! $(this).hasClass("loaded") ){
+                        var pid = $(this).attr("data_id");
+                        let that = this;
+                        $.ajax({
+                            url : "getCategoryListByParentId/"+pid,
+                            type : "GET",
+                            async : false ,
+                            success : function(data){
+                                for( let cate of data ){
+                                    let clone = $(that).next(".list-group.mid").first().clone(true);
+                                    clone.find(".cate_sort").text(cate.cateSort);
+                                    clone.find(".list-group-item.mid").attr("data_id",cate.cateId);
+                                    clone.find(".cate_name").text( " [ "+cate.cateId+" ] "+ cate.cateName);
+                                    clone.appendTo( $(that).parent() );
+                                    // clone.show();
+                                    clone.slideDown(300);
+                                }
+                                $(that).next(".list-group.mid").first().remove();
+                                $(that).addClass("loaded");
+                            }
+                        });
+                    }
+
+                    $(this).nextAll(".list-group.mid").slideDown(300);
+                    $(this).addClass("expand")
+                }
+            });
+
+            $(".list-group-item.mid").click(function(){
+                if( $(this).hasClass("expand") ){
+                    $(this).nextAll(".list-group.mini").slideUp(300);
+                    $(this).removeClass("expand");
+                }else{
+                    if( ! $(this).hasClass("loaded") ){
+                        var pid = $(this).attr("data_id");
+                        let that = this;
+                        $.ajax({
+                            url : "getCategoryListByParentId/"+pid,
+                            type : "GET",
+                            async : false ,
+                            success : function(data){
+                                for( let cate of data ){
+                                    let clone = $(that).next(".list-group.mini").first().clone(true);
+                                    clone.find(".cate_sort").text(cate.cateSort);
+                                    clone.find(".cate_name").text( " [ "+cate.cateId+" ] "+ cate.cateName);
+                                    clone.appendTo( $(that).parent() );
+                                    // clone.show();
+                                    clone.slideDown(300);
+                                }
+                                $(that).next(".list-group.mini").first().remove();
+                                $(that).addClass("loaded");
+                            }
+                        });
+                    }
+
+                    $(this).nextAll(".list-group.mini").slideDown(300);
+                    $(this).addClass("expand")
+                }
+            });
+
+        });
+    </script>
+</div>
+</body>
+</html>

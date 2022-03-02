@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.mapper.RoleMapper">
+    <select id="getRoleList" parameterType="com.bwf.bean.bo.RoleSearchBo"
+            resultType="com.bwf.bean.po.Role">
+        select role_id roleId, role_name roleName
+        from role
+        <where>
+            <if test="bo.roleId != null">
+                role_id = #{roleId}
+            </if>
+            <if test="bo.roleName != null">
+                and role_name = #{roleName}
+            </if>
+                and is_delete = 0
+        </where>
+    </select>
+
+    <select id="getRoleById" resultType="com.bwf.bean.po.Role">
+        SELECT r.role_id   roleId,
+               r.role_name roleName,
+               GROUP_CONCAT(rp.permission_id) permissionId
+        FROM role r
+        INNER JOIN role_permission rp ON r.role_id = rp.role_id
+        WHERE r.role_id = #{roleId}
+        GROUP BY r.role_id
+    </select>
+</mapper>

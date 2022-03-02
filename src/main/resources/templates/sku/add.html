@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加商品SKU表单页面</title>
+    <link th:href="@{/css/bootstrap4.min.css}" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap4.min.js}"></script>
+    <link th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
+    <script th:src="@{/js/chosen.jquery.js}"></script>
+    <!--  ueditor 配置  -->
+    <script th:src="@{/ueditor/ueditor.config.js}"></script>
+    <!--  ueditor 核心  -->
+    <script th:src="@{/ueditor/ueditor.all.min.js}"></script>
+    <!--  ueditor 简体中文 语言包  -->
+    <script th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+    <script>
+        // 使用 ueditor 富文本编辑器 重绘 textarea
+        let editor = UE.getEditor('spu_introduction');
+        // 从配置参数中 获取到 上传图片表单的action属性的url路径
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        // 给 获取 上传图片表单的action属性 添加 事件
+        UE.Editor.prototype.getActionUrl = function(action) {
+               // 判断 如果 获取到 上传图片表单的action属性 是 'uploadimage'
+               if (action == 'uploadimage'){
+                    // 修改 返回的 上传图片表单的action属性 修改成 我们自己的 Controller+Action路径
+                    return '/edit/upload'; /* SpringMVC实现图片上传的路径 */
+               }else{
+                    return this._bkGetActionUrl.call(this, action);
+               }
+        };
+    </script>
+</head>
+<body>
+<div class="container-fluid mt-2 ">
+
+    <form th:action="@{/sku/save}" method="POST">
+
+        <select name="skuSpuId" class="form-control form-control-chosen sku_spu_id" data-placeholder="--所属商品SPU--">
+            <option value="-1">--所属商品SPU--</option>
+            <option th:each="spu:${spuList}" th:value="${spu.spuId}" th:text="${spu.spuName}">品牌名称</option>
+        </select>
+
+        <div class="card card-primary my-1">
+            <div class="card-header">商品SKU组合：</div>
+            <div class="card-body">
+                <div class="row sku-group">
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU名称：</div></div>
+            <input type="text" name="skuName" class="form-control" placeholder="商品SKU名称" />
+        </div>
+
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU序号：</div></div>
+            <input type="text" name="sortNo" class="form-control" placeholder="商品SKU序号" />
+        </div>
+
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU原价：</div></div>
+            <input type="text" name="skuOriginalPrice" class="form-control" placeholder="商品SKU原价" />
+        </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU折扣价：</div></div>
+            <input type="text" name="skuCostPrice" class="form-control" placeholder="商品SKU折扣价" />
+        </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU单价：</div></div>
+            <input type="text" name="skuPrice" class="form-control" placeholder="商品SKU单价" />
+        </div>
+
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU库存：</div></div>
+            <input type="text" name="skuQuantity" class="form-control" placeholder="商品SKU库存" />
+        </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU预警库存：</div></div>
+            <input type="text" name="skuWarningQuantity" class="form-control" placeholder="商品SKU预警库存" />
+        </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend"><div class="input-group-text">商品SKU限购数量：</div></div>
+            <input type="text" name="skuMaxQuantity" class="form-control" placeholder="商品SKU限购数量" />
+        </div>
+
+
+        <button class="btn btn-danger form-control"> 添加商品SKU </button>
+
+    </form>
+    <div class="col-3 sku" style="display:none;">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text sku-name">sku</div>
+            </div>
+            <select name="skuList" class="form-control sku-value" disabled></select>
+        </div>
+    </div>
+</div>
+<div style="height:100px;"></div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var context = /*[[@{/}]]*/;
+        /*]]>*/
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".sku_spu_id").change(function(){
+                let spu_id = $(this).val();
+                $.ajax({
+                    url : "getSpuAttrKeyValueVoListBySpuId",
+                    type : "GET",
+                    data : {"spu_id":spu_id},
+                    dataType : "JSON",
+                    success : function(data){
+                        $(".sku-group").empty();
+                        for( let sku of data ){
+                            let s = $(".sku").last().clone(true);
+                            s.find(".sku-name").text(sku.key_name);
+                            s.find(".sku-value").prop("disabled",false);
+                            s.appendTo( $(".sku-group") );
+                            s.show();
+                            for( let v of sku.spuAttrValueList ){
+                                let op = new Option( v.value_name , v.id );
+                                s.find(".sku-value").get(0).options.add(op);
+                            }
+                        }
+                    }
+                });
+            });
+        });
+		$('.form-control-chosen').chosen({
+		  allow_single_deselect: true,
+		  width: '100%'
+		});
+		$('.form-control-chosen-required').chosen({
+		  allow_single_deselect: false,
+		  width: '100%'
+		});
+		$('.form-control-chosen-search-threshold-100').chosen({
+		  allow_single_deselect: true,
+		  disable_search_threshold: 100,
+		  width: '100%'
+		});
+		$('.form-control-chosen-optgroup').chosen({
+		  width: '100%'
+		});
+
+		$(function() {
+		  $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
+		});
+		$(document).on('click', '[title="clickable_optgroup"] .group-result', function() {
+		  var unselected = $(this).nextUntil('.group-result').not('.result-selected');
+		  if(unselected.length) {
+		    unselected.trigger('mouseup');
+		  } else {
+		    $(this).nextUntil('.group-result').each(function() {
+		      $('a.search-choice-close[data-option-array-index="' + $(this).data('option-array-index') + '"]').trigger('click');
+		    });
+		  }
+		});
+	</script>
+
+</body>
+</html>

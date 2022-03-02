@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.mapper.BrandMapper">
+    <select id="getBrandList" parameterType="com.bwf.bean.bo.BrandSearchBo"
+            resultType="com.bwf.bean.po.Brand">
+        select
+               brand_id brandId, brand_name brandName,
+               brand_introduction brandIntroduction,
+               brand_logourl brandLogoUrl, sortno sortNo,
+               DATE_FORMAT(createtime, '%Y-%m-%d %T') createTime,
+               DATE_FORMAT(updatetime, '%Y-%m-%d %T') updateTime
+        from brand
+        <where>
+            <if test="bo.brandName != null and bo.brandName != '' ">
+                and brand_name = #{bo.brandName}
+            </if>
+        </where>
+    </select>
+
+</mapper>

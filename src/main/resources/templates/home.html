@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>BWFUIFramework</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/wow.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/global.css}"/>
+    <script type="text/javascript" th:src="@{/js/global.js}"></script>
+</head>
+<body>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-condense">
+        <div class="btn-group btn-group-lg" style="width: 100%; text-align: center; height: 80px;">
+            <button type="button" class="btn btn-info animate-btn" style="width: 50%; height: 100%;">
+                <img th:src="@{/img/b26.png}" class="img " height="60px"/>
+            </button>
+            <button type="button" class="btn btn-default" style="width: 50%; text-align:center; height: 100%;">
+                <div style="font-size: 24px; font-weight: 600;">1277</div>
+                <div style="font-size: 16px;">新消息</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-condense">
+        <div class="btn-group btn-group-lg" style="width: 100%; text-align: center; height: 80px;">
+            <button type="button" class="btn btn-warning animate-btn" style="width: 50%; height: 100%;">
+                <img th:src="@{/img/b10.png}" class="img " height="60px"/>
+            </button>
+            <button type="button" class="btn btn-default" style="width: 50%; text-align:center; height: 100%;">
+                <div style="font-size: 24px; font-weight: 600;">598</div>
+                <div style="font-size: 16px;">新增人数</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-condense">
+        <div class="btn-group btn-group-lg" style="width: 100%; text-align: center; height: 80px;">
+            <button type="button" class="btn btn-success animate-btn" style="width: 50%; height: 100%;">
+                <img th:src="@{/img/b23.png}" class="img " height="60px"/>
+            </button>
+            <button type="button" class="btn btn-default" style="width: 50%; text-align:center; height: 100%;">
+                <div style="font-size: 24px; font-weight: 600;">598</div>
+                <div style="font-size: 16px;">用户总数</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-condense">
+        <div class="btn-group btn-group-lg" style="width: 100%; text-align: center; height: 80px;">
+            <button type="button" class="btn btn-danger animate-btn" style="width: 50%; height: 100%;">
+                <img th:src="@{/img/b22.png}" class="img " height="60px"/>
+            </button>
+            <button type="button" class="btn btn-default" style="width: 50%; text-align:center; height: 100%;">
+                <div style="font-size: 24px; font-weight: 600;">2348</div>
+                <div style="font-size: 16px;">图片总数</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-condense">
+        <div class="btn-group btn-group-lg" style="width: 100%; text-align: center; height: 80px;">
+            <button type="button" class="btn btn-primary animate-btn" style="width: 50%; height: 100%;">
+                <img th:src="@{/img/b15.png}" class="img " height="60px"/>
+            </button>
+            <button type="button" class="btn btn-default" style="width: 50%; text-align:center; height: 100%;">
+                <div style="font-size: 24px; font-weight: 600;">0</div>
+                <div style="font-size: 16px;">待审核文件</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-condense">
+        <div class="btn-group btn-group-lg" style="width: 100%; text-align: center; height: 80px;">
+            <button type="button" class="btn btn-warning animate-btn" style="width: 50%; height: 100%;">
+                <img th:src="@{img/b25.png}" class="img " height="60px"/>
+            </button>
+            <button type="button" class="btn btn-default" style="width: 50%; text-align:center; height: 100%;">
+                <div style="font-size: 24px; font-weight: 600;">6113</div>
+                <div style="font-size: 16px;">文章总数</div>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 animated wow bounceInUp">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                博为峰UI模板技术说明
+            </div>
+            <div class="panel-body">
+                本模板基于Bootstrap框架实现，支持所有Bootstrap插件。<br/>
+                模板中CSS动画效果基于Animate.CSS框架和WOW.Js框架实现，支持所有Animate.CSS中动画效果。<br/>
+                模板中所有Dom监听事件基于JQuery框架实现，支持所有JQuery插件，当前版本jquery-1.8.3。
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 animated wow bounceInUp">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                最新公告
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="">
+                            <div class="list-group-item-text">上海博为峰软件技术股份有限公司</div>
+                            <div class="list-group-item-text text-right">2021-09-23 12:32:23</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 animated wow bounceInUp">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                系统基本参数
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-responsive table-condensed">
+                    <tr>
+                        <td>当前版本</td>
+                        <td>v1.0.1</td>
+                    </tr>
+                    <tr>
+                        <td>开发作者</td>
+                        <td>博为峰教学部</td>
+                    </tr>
+                    <tr>
+                        <td>网站首页</td>
+                        <td>index.html</td>
+                    </tr>
+                    <tr>
+                        <td>服务器环境</td>
+                        <td>MS Window Server 2008</td>
+                    </tr>
+                    <tr>
+                        <td>数据库产品</td>
+                        <td>Oracle oracle</td>
+                    </tr>
+                    <tr>
+                        <td>数据库版本</td>
+                        <td>Oracle oracle 11g</td>
+                    </tr>
+                    <tr>
+                        <td>最大上传限制</td>
+                        <td>2Mb</td>
+                    </tr>
+                    <tr>
+                        <td>当前用户权限</td>
+                        <td>系统管理员</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="height: 80px;"></div>
+</body>
+</html>

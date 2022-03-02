@@ -1,0 +1,31 @@
+server:
+  port: 8088
+spring:
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://82.156.194.110:3306/shop_date?serverTimezone=UTC
+    username: root
+    password: 7356421
+    druid:
+      initial-size: 10
+      max-active: 10
+      min-idle: 10
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  type-aliases-package: com.bwf.bean
+  mapper-locations: classpath:mybatis/mapping/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+
+
+pagehelper:
+  helper-dialect: mysql
+
+logging:
+  config: classpath:log4j2/log4j2.xml
+#  level:
+#    com.bwf.mapper: debug
+

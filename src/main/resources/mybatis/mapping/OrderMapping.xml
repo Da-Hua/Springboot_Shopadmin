@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.mapper.OrderMapper">
+    <resultMap id="getOrderList" type="order">
+        <id property="orderId" column="id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderSpuAmount" column="order_spuamount"/>
+        <result property="orderExpressFee" column="order_expressfee"/>
+        <result property="orderTotalAmount" column="order_totalamount"/>
+        <result property="orderDiscountAmount" column="order_discountamount"/>
+        <result property="orderPayAmount" column="order_payamount"/>
+        <result property="orderPayMode" column="order_paymode"/>
+        <result property="orderPayPlatform" column="order_payplatform"/>
+        <result property="orderIpAddress" column="order_ipaddress"/>
+        <result property="orderPaymentNo" column="order_paymentno"/>
+        <result property="orderRemark" column="order_remark"/>
+        <result property="createTime" column="DATE_FORMAT(o.createtime, '%Y-%m-%d %T')"/>
+        <result property="updateTime" column="DATE_FORMAT(o.updatetime, '%Y-%m-%d %T')"/>
+        <result property="orderUserId" column="order_user_id"/>
+        <association property="user" javaType="user">
+            <id property="userId" column="user_id"/>
+            <result property="userName" column="user_name"/>
+        </association>
+        <association property="orderAddress" javaType="orderAddress">
+            <id property="oaId" column="id"/>
+            <result property="consignee" column="consignee"/>
+            <result property="phone" column="phone"/>
+            <result property="province" column="province"/>
+            <result property="city" column="city"/>
+            <result property="district" column="district"/>
+            <result property="address" column="address"/>
+            <result property="updateTime" column="DATE_FORMAT(oa.updatetime, '%Y-%m-%d %T')"/>
+        </association>
+        <association property="orderDetail" javaType="orderDetail">
+            <id property="odtailsId" column="id"/>
+            <result property="odtailsName" column="odtails_name"/>
+            <result property="odtailsThumbUrl" column="odtails_thumburl"/>
+            <result property="odtailsPrice" column="odtails_price"/>
+            <result property="odtailsCount" column="odtails_count"/>
+            <result property="odtailsAmount" column="odtails_amount"/>
+            <result property="odtailsScoreStatus" column="odtails_scorestatus"/>
+            <result property="createTime" column="DATE_FORMAT(od.createtime, '%Y-%m-%d %T')"/>
+            <result property="updateTime" column="DATE_FORMAT(od.updatetime, '%Y-%m-%d %T')"/>
+        </association>
+    </resultMap>
+    <select id="getOrderList" parameterType="com.bwf.bean.bo.OrderSearchBo"
+            resultType="com.bwf.bean.po.Order" resultMap="getOrderList">
+        select
+               o.id, o.order_no, o.order_status, o.order_spuamount,
+               o.order_expressfee, o.order_totalamount,  o.order_discountamount,
+               o.order_payamount, o.order_paymode, o.order_payplatform,
+               o.order_ipaddress, o.order_paymentno, o.order_remark,
+               DATE_FORMAT(o.createtime, '%Y-%m-%d %T'),
+               DATE_FORMAT(o.updatetime, '%Y-%m-%d %T'),
+               o.order_user_id,
+               u.user_id, u.user_name,
+               oa.id, oa.consignee, oa.phone, oa.province,
+               oa.city, oa.district, oa.address,
+               DATE_FORMAT(oa.updatetime, '%Y-%m-%d %T'),
+               od.id, od.odtails_name, od.odtails_thumburl,
+               od.odtails_price, od.odtails_count, od.odtails_amount,
+               od.odtails_scorestatus,
+               DATE_FORMAT(od.createtime, '%Y-%m-%d %T'),
+               DATE_FORMAT(od.updatetime, '%Y-%m-%d %T')
+            from
+                 `order` o
+            left join `user` u on o.order_user_id = u.user_id
+            left join `order_address` oa on o.id = oa.id
+            left join `order_details` od on o.id = od.odtails_orderno_id
+            <where>
+                <if test="bo != null">
+                    <if test="bo.orderId != null and bo.orderId != ''">
+                        o.id = #{bo.orderId}
+                    </if>
+                    <if test="bo.orderNo != null and bo.orderNo != ''">
+                        and o.order_no = #{bo.orderNo}
+                    </if>
+                    <if test="bo.orderUserId != null and bo.orderUserId != ''">
+                        and o.order_user_id = #{bo.orderUserId}
+                    </if>
+                    <if test="bo.orderPaymentNo != null and bo.orderPaymentNo != ''">
+                        and o.order_paymentno = #{bo.orderPaymentNo}
+                    </if>
+                    <if test="bo.orderStatus != null and bo.orderStatus != '' and bo.orderStatus != '-1'">
+                        and o.order_status = #{bo.orderStatus}
+                    </if>
+                    <if test="bo.orderPayMode != null and bo.orderPayMode != '' and bo.orderPayMode != '-1'">
+                        and o.order_paymode = #{bo.orderPayMode}
+                    </if>
+                    <if test="bo.orderPayPlatform != null and bo.orderPayPlatform != '' and bo.orderPayPlatform != '-1'">
+                        and o.order_payplatform = #{bo.orderPayPlatform}
+                    </if>
+                </if>
+                and o.is_delete = 0
+            </where>
+    </select>
+
+</mapper>

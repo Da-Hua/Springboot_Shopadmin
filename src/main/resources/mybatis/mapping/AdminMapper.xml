@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.mapper.AdminMapper">
+<!--    <update id="updateAdmin"/>-->
+    <select id="loginDo" resultType="com.bwf.bean.po.Admin">
+        select admin_id adminId, admin_name adminName, admin_pass adminPass, admin_nickname adminNickname
+        from admin
+        where admin_name = #{username}
+    </select>
+
+    <select id="getAdminList" parameterType="com.bwf.bean.bo.AdminSearchBo"
+            resultType="com.bwf.bean.po.Admin">
+        select admin_id adminId, admin_name adminName, admin_pass adminPass, admin_nickname adminNickname
+        from admin
+        <where>
+            <if test="bo.adminId != null">
+                admin_id = #{bo.adminId}
+            </if>
+            <if test="bo.adminName != null and bo.adminName != '' ">
+                and admin_name = #{bo.adminName}
+            </if>
+            <if test="bo.adminNickname != null and bo.adminNickname != ''">
+                and admin_nickname like '%${bo.adminNickname}%'
+            </if>
+            and is_delete = 0
+        </where>
+    </select>
+</mapper>

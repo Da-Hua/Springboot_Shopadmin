@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bwf.mapper.SpuMapper">
+    <select id="getSpuList" resultMap="spu">
+        select
+            s.spu_id, spu_name, spu_title, spu_introduction, spu_unit,
+            spu_sketchtype, spu_sketch, spu_specs, spu_skutype, spu_status,
+            DATE_FORMAT(s.createtime, '%Y-%m-%d %T'),
+            DATE_FORMAT(s.updatetime, '%Y-%m-%d %T'),
+            spu_brand_id,
+            brand_id, brand_name
+        from
+             spu s
+        left join brand b on b.brand_id = s.spu_brand_id
+        <where>
+            <if test="bo != null">
+                <if test="bo.spuId != null and bo.spuId != ''">
+                    spu_id = #{bo.spuId}
+                </if>
+                <if test="bo.spuName != null and bo.spuName != ''">
+                    and spu_name = #{bo.spuName}
+                </if>
+                <if test="bo.spuStatus != null and bo.spuStatus != '-1'">
+                    and spu_status = #{bo.spuStatus}
+                </if>
+                <if test="bo.spuBrandId != null and bo.spuBrandId != '-1'">
+                    and spu_brand_id = #{bo.spuBrandId}
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="spu" type="com.bwf.bean.po.Spu">
+        <id property="spuId" column="spu_id"/>
+        <result property="spuName" column="spu_name"/>
+        <result property="spuTitle" column="spu_title"/>
+        <result property="spuIntroduction" column="spu_introduction"/>
+        <result property="spuUnit" column="spu_unit"/>
+        <result property="spuSketchType" column="spu_sketchtype"/>
+        <result property="spuSketch" column="spu_sketch"/>
+        <result property="spuSpecs" column="spu_specs"/>
+        <result property="spuSkuType" column="spu_skutype"/>
+        <result property="spuStatus" column="spu_status"/>
+        <result property="createTime" column="DATE_FORMAT(s.createtime, '%Y-%m-%d %T')"/>
+        <result property="updateTime" column="DATE_FORMAT(s.updatetime, '%Y-%m-%d %T')"/>
+        <result property="spuBrandId" column="spu_brand_id"/>
+        <association property="brand" column="brand">
+            <id property="brandId" column="brand_id"/>
+            <result property="brandName" column="brand_name"/>
+        </association>
+    </resultMap>
+
+</mapper>

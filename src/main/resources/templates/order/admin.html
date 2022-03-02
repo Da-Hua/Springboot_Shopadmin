@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <link th:href="@{/css/bootstrap4.min.css}" rel="stylesheet">
+    <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap4.min.js}"></script>
+    <link th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
+    <script th:src="@{/js/chosen.jquery.js}"></script>
+    <style>
+        .orders{display:none;}
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid mt-2">
+        <!--  筛选控件   -->
+        <form name="form1" action="admin" method="post">
+            <div class="row">
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <input type="text" name="orderId" class="form-control" placeholder="订单Id">
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <input type="text" name="orderNo" class="form-control" placeholder="订单编号">
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <input type="text" name="orderUserId" class="form-control" placeholder="订购用户Id">
+                </div>
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <input type="text" name="orderPaymentNo" class="form-control" placeholder="支付平台支付单号">
+                </div>
+                <div class="col-4">
+                    <select class="form-control" name="orderStatus">
+                        <option value="-1" selected>--所有状态--</option>
+                        <option value="0" >已下单</option>
+                        <option value="2" >已付款</option>
+                        <option value="4" >已配货</option>
+                        <option value="6" >已发货</option>
+                        <option value="8" >已收货</option>
+                        <option value="10" >已评价</option>
+                        <option value="30" >退款中</option>
+                        <option value="32" >已退款</option>
+                        <option value="34" >退款失败</option>
+                        <option value="40" >已取消</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select class="form-control" name="orderPayMode">
+                        <option value="-1" selected>--所有支付方式--</option>
+                        <option value="0">支付宝</option>
+                        <option value="1">微信</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select class="form-control" name="orderPayPlatform">
+                        <option value="-1" selected>--所有支付平台--</option>
+                        <option value="0">PC</option>
+                        <option value="1">APP</option>
+                        <option value="2">小程序</option>
+                        <option value="3">移动端H5</option>
+                    </select>
+                </div>
+
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <input type="hidden" name="pageNum" class="form-control" placeholder="起始索引" th:value="${pageInfo.pageNum}">
+                    <input type="hidden" name="pageSize" class="form-control" placeholder="记录数量" th:value="${pageInfo.pageSize}">
+                    <button class="btn btn-primary form-control"> 搜索 </button>
+                </div>
+                <div class="col-2 ml-auto">
+                    <button type="button" class="btn btn-danger form-control btn-add">添加品牌</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-bordered table-sm mt-2">
+            <thead>
+            <tr>
+                <th> </th>
+                <th>订单Id</th>
+                <th>订单号</th>
+                <th>订单状态</th>
+                <th>商品总额</th>
+                <th>物流费</th>
+                <th>订单总额</th>
+                <th>优惠额</th>
+                <th>支付额</th>
+                <th>支付方式</th>
+                <th>支付平台</th>
+                <th>支付IP</th>
+                <th>支付单号</th>
+                <th>时间</th>
+                <th>订购用户</th>
+                <th>操作选项</th>
+            </tr>
+            </thead>
+            <tbody th:each="order:${pageInfo.list}">
+            <tr  style="cursor:pointer">
+                <td class="expand">+</td>
+                <td th:text="${order.orderId}">订单Id</td>
+                <td th:text="${order.orderNo}" width="160px">订单号</td>
+                <td>
+                    <span th:if="${order.orderStatus}==0" class="badge badge-info badge-pill">已下单</span>
+                    <span th:if="${order.orderStatus}==2" class="badge badge-info badge-pill">已付款</span>
+                    <span th:if="${order.orderStatus}==4" class="badge badge-primary badge-pill">已配货</span>
+                    <span th:if="${order.orderStatus}==6" class="badge badge-primary badge-pill">已发货</span>
+                    <span th:if="${order.orderStatus}==8" class="badge badge-success badge-pill">已收货</span>
+                    <span th:if="${order.orderStatus}==10" class="badge badge-success badge-pill">已评价</span>
+                    <span th:if="${order.orderStatus}==30" class="badge badge-warning badge-pill">退款中</span>
+                    <span th:if="${order.orderStatus}==32" class="badge badge-warning badge-pill">已退款</span>
+                    <span th:if="${order.orderStatus}==34" class="badge badge-danger badge-pill">退款失败</span>
+                    <span th:if="${order.orderStatus}==40" class="badge badge-default badge-pill">已取消</span>
+                </td>
+                <td th:text="${order.orderSpuAmount}">商品总额</td>
+                <td th:text="${order.orderExpressFee}">物流费</td>
+                <td th:text="${order.orderTotalAmount}">订单总额</td>
+                <td th:text="${order.orderDiscountAmount}">优惠额</td>
+                <td th:text="${order.orderPayAmount}">支付额</td>
+                <td>
+                    <span th:if="${order.orderPayMode}==0" class="badge badge-primary badge-pill">支付宝</span>
+                    <span th:if="${order.orderPayMode}==1" class="badge badge-success badge-pill">微信</span>
+                </td>
+                <td>
+                    <span th:if="${order.orderPayPlatform}==0" class="badge badge-primary badge-pill">PC</span>
+                    <span th:if="${order.orderPayPlatform}==1" class="badge badge-success badge-pill">APP</span>
+                    <span th:if="${order.orderPayPlatform}==2" class="badge badge-warning badge-pill">小程序</span>
+                    <span th:if="${order.orderPayPlatform}==3" class="badge badge-danger badge-pill">移动端H5</span>
+                </td>
+                <td th:text="${order.orderIpAddress}">支付IP</td>
+                <td th:text="${order.orderPaymentNo}">支付单号</td>
+                <td>
+                    <div th:text="'创建:'+${order.createTime}">订购用户</div>
+                    <div th:text="'更新:'+${order.updateTime}">创建时间</div>
+                </td>
+
+                <td>
+                    <span th:text="${order.user.userName}"></span>
+                    <span>（</span>
+                    <span th:text="${order.orderUserId}"></span>
+                    <span>）</span>
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <a th:if="${order.orderStatus}==2" th:href="@{'/order/save?orderId='+${order.orderId}+'&orderStatus=4'}" class="btn btn-light">已配货</a>
+                    </div>
+                </td>
+            </tr>
+            <tr class="orders">
+                <th> </th>
+                <th>收货人</th>
+                <th>联系电话</th>
+                <th colspan="11">收货地址</th>
+                <th colspan="3">更新时间</th>
+            </tr>
+            <tr class="orders">
+                <td> </td>
+                <td th:text="${order.orderAddress.consignee}">收货人</td>
+                <td th:text="${order.orderAddress.phone}">联系电话</td>
+                <td colspan="11" th:text="${order.orderAddress.province}+${order.orderAddress.city}+${order.orderAddress.district}+${order.orderAddress.address}">收货地址</td>
+                <td colspan="3" th:text="${order.orderAddress.updateTime}">更新时间</td>
+            </tr>
+            <tr class="orders">
+                <th> </th>
+                <th colspan="5">商品名称</th>
+                <th colspan="2"></th>
+                <th colspan="1">单价</th>
+                <th colspan="1">购买数量</th>
+                <th colspan="1">小计金额</th>
+                <th colspan="1">评价</th>
+                <th colspan="2">创建时间</th>
+                <th colspan="2">更新时间</th>
+            </tr>
+            <tr th:each="detail:${order.orderDetail}" class="orders">
+                <td> </td>
+                <td colspan="5" th:text="${detail.odtailsName}">商品名称</td>
+                <td colspan="2">
+                    <img th:src="${image_url+detail.odtailsThumbUrl}" height="30px"/>
+                </td>
+                <td colspan="1" th:text="${detail.odtailsPrice}">单价</td>
+                <td colspan="1" th:text="${detail.odtailsCount}">购买数量</td>
+                <td colspan="1" th:text="${detail.odtailsAmount}">小计金额</td>
+                <td colspan="1" th:text="${detail.odtailsScoreStatus==0?'待评价':'已评价'}">评价</td>
+                <td colspan="2" th:text="${detail.createTime}">创建时间</td>
+                <td colspan="2" th:text="${detail.updateTime}">更新时间</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--  分页控件  -->
+        <div class="row mt-2">
+            <div class="col-12 col-lg-6">
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-first">首页</button>
+                    <button class="btn btn-primary btn-prev">上一页</button>
+                    <button class="btn btn-primary btn-next">下一页</button>
+                    <button class="btn btn-primary btn-last">末页</button>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="input-group">
+                    <input type="text" name="current" class="form-control" value="" dir="rtl"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text"> / <span class="total"></span> 页 </span>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary btn-go"> Go </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <select class="form-control pageSize" >
+                    <option name="pageSize" value="5" th:selected="${pageInfo.pageSize} == 5">每页显示5条记录</option>
+                    <option name="pageSize" value="10" th:selected="${pageInfo.pageSize} == 10">每页显示10条记录</option>
+                </select>
+            </div>
+        </div>
+        <!--  /分页控件  -->
+        <div style="margin-top:100px;"></div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var context = /*[[@{/}]]*/;
+        /*]]>*/
+    </script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $(".expand").click(function(){
+                if( $(this).text()=='+'){
+                    $(this).parent().parent().find(".orders").slideDown(300);
+                    $(this).text("-");
+                }else{
+                    $(this).parent().parent().find(".orders").slideUp(300);
+                    $(this).text("+");
+                }
+            });
+            $(".btn-add").click(function(){
+                location.href=context+"spu/add";
+            });
+
+            var pageInfo = [[${pageInfo}]];
+            // 首页
+            $(".btn-first").click(function(){
+                // 修改 当前显示的起始记录索引
+                $("input[name='pageNum']").val( 1 );
+                // 提交表单
+                form1.submit();
+            });
+            //上一页
+            $(".btn-prev").click(function(){
+                // 获取 当前显示的起始记录索引
+                let pageNum = parseInt( $("input[name='pageNum']").val() );
+                // 修改 当前显示的起始记录索引
+                if(pageInfo.hasPreviousPage){
+                    $("input[name='pageNum']").val( pageNum - 1 );
+                    // 提交表单
+                    form1.submit();
+                }else {
+                    alert("已经是第一页")
+                }
+            });
+            $(".btn-next").click(function(){
+                // 获取 当前显示的起始记录索引
+                let pageNum = parseInt( $("input[name='pageNum']").val() );
+                // 修改 当前显示的起始记录索引
+                if(pageInfo.hasNextPage) {
+                    $("input[name='pageNum']").val(pageNum + 1);
+                    // 提交表单
+                    form1.submit();
+                }else {
+                    alert("已经是最后页")
+                }
+            });
+            $(".btn-last").click(function(){
+                // 修改 当前显示的起始记录索引
+                $("input[name='pageNum']").val( pageInfo.pages );
+                // 提交表单
+                form1.submit();
+            });
+            $(".btn-go").click(function(){
+                // 获取 当前用户输入的要跳转的页码
+                let page = parseInt( $("input[name='current']").val() );
+                // 修改 当前显示的起始记录索引
+                $("input[name='start']").val( page );
+                // 提交表单
+                form1.submit();
+            });
+            $(".pageSize").change(function(){
+                // 修改 每页显示的记录数
+                $("input[name='pageSize']").val( $(this).val() );
+                // 提交表单
+                form1.submit();
+            });
+        });
+    </script>
+    <script type="text/javascript">
+            $('.form-control-chosen').chosen({
+              allow_single_deselect: true,
+              width: '100%'
+            });
+            $('.form-control-chosen-required').chosen({
+              allow_single_deselect: false,
+              width: '100%'
+            });
+            $('.form-control-chosen-search-threshold-100').chosen({
+              allow_single_deselect: true,
+              disable_search_threshold: 100,
+              width: '100%'
+            });
+            $('.form-control-chosen-optgroup').chosen({
+              width: '100%'
+            });
+
+            $(function() {
+              $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
+            });
+            $(document).on('click', '[title="clickable_optgroup"] .group-result', function() {
+              var unselected = $(this).nextUntil('.group-result').not('.result-selected');
+              if(unselected.length) {
+                unselected.trigger('mouseup');
+              } else {
+                $(this).nextUntil('.group-result').each(function() {
+                  $('a.search-choice-close[data-option-array-index="' + $(this).data('option-array-index') + '"]').trigger('click');
+                });
+              }
+            });
+        </script>
+</body>
+</html>

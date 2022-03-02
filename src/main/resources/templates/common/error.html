@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>操作失败页面</title>
+    <link th:href="@{/css/bootstrap4.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid mt-2">
+    <div class="card">
+        <div class="card-header">操作失败：（</div>
+        <div class="card-body" th:text="${messages}">
+            <ul class="list-group">
+                <li class="list-group-item" th:each="s:${messages}" th:text="${s}"></li>
+            </ul>
+        </div>
+        <div class="card-footer" th:text="${solution}"></div>
+        <div class="card-footer">
+            <a th:href="@{${back}}" class="btn btn-primary"> 返回 </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

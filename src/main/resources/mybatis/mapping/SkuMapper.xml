@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.mapper.SkuMapper">
+    <select id="getSkuList" resultMap="getSkuList" parameterType="com.bwf.bean.bo.SkuSearchBo">
+        select
+            sku_id, sku_spu_id, sku_name,
+            sku_spuattr, sku_price, sku_originalprice,
+            sku_costprice, sku_quantity, sortno,
+            sku_warning_quantity, sku_max_quantity,
+            DATE_FORMAT(sku.createtime, '%Y-%m-%d %T'),
+            DATE_FORMAT(sku.updatetime, '%Y-%m-%d %T'),
+            spu_id, spu_name
+        from
+            sku
+        left join
+             spu on sku_spu_id = spu_id
+        <where>
+            <if test="bo.skuId != null">
+                sku_id = #{bo.skuId}
+            </if>
+            <if test="bo.skuSpuId != null and bo.skuSpuId != -1">
+                and sku_spu_id = #{bo.skuSpuId}
+            </if>
+            <if test="bo.skuName != null and bo.skuName.length > 0">
+                and sku_name like '%${bo.skuName}%'
+            </if>
+        </where>
+        order by sortno,sku_id
+    </select>
+
+    <resultMap id="getSkuList" type="com.bwf.bean.po.Sku">
+        <id property="skuId" column="sku_id"/>
+        <result property="skuSpuId" column="sku_spu_id"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="skuSpuAttr" column="sku_spuattr"/>
+        <result property="skuPrice" column="sku_price"/>
+        <result property="skuOriginalPrice" column="sku_originalprice"/>
+        <result property="skuCostPrice" column="sku_costprice"/>
+        <result property="skuQuantity" column="sku_quantity"/>
+        <result property="sortNo" column="sortno"/>
+        <result property="skuWarningQuantity" column="sku_warning_quantity"/>
+        <result property="skuMaxQuantity" column="sku_max_quantity"/>
+        <result property="createTime" column="DATE_FORMAT(createtime, '%Y-%m-%d %T')"/>
+        <result property="updateTime" column="DATE_FORMAT(updatetime, '%Y-%m-%d %T')"/>
+        <association property="spu" javaType="spu">
+            <id property="spuId" column="spu_id"/>
+            <result property="spuName" column="spu_name"/>
+        </association>
+    </resultMap>
+
+</mapper>

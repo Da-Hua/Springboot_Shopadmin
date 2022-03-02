@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J2"/>
+        <!--延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--指定对象的哪些方法触发一次延迟加载 equals,clone,hashCode,toString-->
+        <setting name="lazyLoadTriggerMethods" value="toString"/>
+        <setting name="cacheEnabled" value="false"/>
+    </settings>
+</configuration>

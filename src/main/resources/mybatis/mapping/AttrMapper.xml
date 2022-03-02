@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwf.mapper.AttrMapper">
+    <resultMap id="getAttrList" type="Attr">
+        <id property="keyId" column="key_id"/>
+        <result property="keyName" column="key_name"/>
+        <result property="keyIsSku" column="key_issku"/>
+        <result property="keyIsHigh" column="key_ishigh"/>
+        <result property="createTime" column="DATE_FORMAT(createtime, '%Y-%m-%d %T')"/>
+        <result property="updateTime" column="DATE_FORMAT(updatetime, '%Y-%m-%d %T')"/>
+    </resultMap>
+    <select id="getAttrList" parameterType="com.bwf.bean.bo.AttrSearchBo"
+            resultType="com.bwf.bean.po.Attr" resultMap="getAttrList">
+        select
+            key_id, key_name,
+            key_issku, key_ishigh,
+            DATE_FORMAT(createtime, '%Y-%m-%d %T'),
+            DATE_FORMAT(updatetime, '%Y-%m-%d %T')
+        from
+            spu_attr_key
+        <where>
+            <if test="bo != null">
+                <if test="bo.keyName != null and bo.keyName != ''">
+                    key_name = #{bo.keyName}
+                </if>
+                <if test="bo.keyIsSku != null and bo.keyIsSku != '' and bo.keyIsSku != '-1'">
+                    and key_issku = #{bo.keyIsSku}
+                </if>
+                <if test="bo.keyIsHigh != null and bo.keyIsHigh != '' and bo.keyIsHigh != '-1'">
+                    and key_ishigh = #{bo.keyIsHigh}
+                </if>
+          </if>
+        </where>
+    </select>
+
+</mapper>

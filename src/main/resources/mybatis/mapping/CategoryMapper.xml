@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bwf.mapper.CategoryMapper">
+    <select id="getCategoryListByParentId" resultMap="getCategoryListByParentId">
+        select
+            cate_id, cate_name, cate_sort,
+            DATE_FORMAT(createtime, '%Y-%m-%d %T'),
+            DATE_FORMAT(updatetime, '%Y-%m-%d %T'),
+            cate_parentid
+        from `category`
+            <where>
+                <choose>
+                    <when test="parentId == null">
+                        cate_parentid is null
+                    </when>
+                    <otherwise>
+                        cate_parentid = #{parentId}
+                    </otherwise>
+                </choose>
+            </where>
+            order by
+                cate_sort,cate_id
+    </select>
+
+    <resultMap id="getCategoryListByParentId" type="com.bwf.bean.po.Category">
+        <id property="cateId" column="cate_id"/>
+        <result property="cateName" column="cate_name"/>
+        <result property="cateSort" column="cate_sort"/>
+        <result property="createTime" column="createtime"/>
+        <result property="updateTime" column="updatetime"/>
+        <result property="cateParentId" column="cate_parentid"/>
+    </resultMap>
+
+    <select id="getCategoryListBySpuId" resultMap="getCategoryListBySpuId">
+        select
+            cate_name
+        from
+             category c
+        left join cate_spu cs on c.cate_id = cs.cate_id
+        where cs.spu_id = #{spuIdList}
+    </select>
+
+    <resultMap id="getCategoryListBySpuId" type="com.bwf.bean.po.Category">
+        <id property="cateId" column="cate_id"/>
+        <result property="cateName" column="cate_name"/>
+        <result property="cateSort" column="cate_sort"/>
+        <result property="createTime" column="createtime"/>
+        <result property="updateTime" column="updatetime"/>
+        <result property="cateParentId" column="cate_parentid"/>
+    </resultMap>
+
+</mapper>
