@@ -7,7 +7,7 @@ spring:
     suffix: .html
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://82.156.194.110:3306/shop_date?serverTimezone=UTC
+    url: jdbc:mysql://82.156.194.110:3306/shopadmin?serverTimezone=UTC
     username: root
     password: 7356421
     druid:
