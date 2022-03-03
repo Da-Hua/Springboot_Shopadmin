@@ -13,7 +13,7 @@ public interface CategoryService {
 
     public List<Category> getCategoryListByParentId(Integer parentId );
 
-    public List<Category> getCategoryListBySpuIdList(Long spuId);
+    public List<Category> getCategoryListBySpuId(Long spuId);
 
     public int addCategory(CategoryAddBo bo);
 

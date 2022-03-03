@@ -11,14 +11,17 @@
             DATE_FORMAT(s.createtime, '%Y-%m-%d %T'),
             DATE_FORMAT(s.updatetime, '%Y-%m-%d %T'),
             spu_brand_id,
-            brand_id, brand_name
+            brand_id, brand_name,
+            c.cate_id, cate_name
         from
              spu s
-        left join brand b on b.brand_id = s.spu_brand_id
+             left join cate_spu cs on s.spu_id = cs.spu_id
+             left join category c on c.cate_id = cs.cate_id
+             left join brand b on b.brand_id = s.spu_brand_id
         <where>
             <if test="bo != null">
                 <if test="bo.spuId != null and bo.spuId != ''">
-                    spu_id = #{bo.spuId}
+                    s.spu_id = #{bo.spuId}
                 </if>
                 <if test="bo.spuName != null and bo.spuName != ''">
                     and spu_name = #{bo.spuName}
@@ -47,7 +50,7 @@
         <result property="createTime" column="DATE_FORMAT(s.createtime, '%Y-%m-%d %T')"/>
         <result property="updateTime" column="DATE_FORMAT(s.updatetime, '%Y-%m-%d %T')"/>
         <result property="spuBrandId" column="spu_brand_id"/>
-        <association property="brand" column="brand">
+        <association property="brand" javaType="com.bwf.bean.po.Brand">
             <id property="brandId" column="brand_id"/>
             <result property="brandName" column="brand_name"/>
         </association>

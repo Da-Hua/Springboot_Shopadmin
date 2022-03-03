@@ -63,7 +63,7 @@
 
                 <div class="d-inline-flex align-items-end justify-content-start">
 
-                    <img th:src="@{/img/}+${spu.spuThumburl}"/>
+                    <img th:src="@{/img/}+${spu.spuThumbUrl}"/>
 
                     <input type="hidden" name="spuThumbUrl" class="form-control" placeholder="封面图片" th:value="${spu.spuThumbUrl}"/>
 
@@ -111,32 +111,32 @@
                     <select name="spu_brand_id" class="form-control">
                         <option
                                 th:each="brand:${brandList}"
-                                th:value="${brand.id}"
-                                th:text="${brand.brand_name}"
-                                th:selected="${brand.id == spu.spu_brand_id}">品牌名称</option>
+                                th:value="${brand.brandId}"
+                                th:text="${brand.brandName}"
+                                th:selected="${brand.brandId == spu.spuBrandId}">品牌名称</option>
                     </select>
                 </div>
 
                 <div class="input-group my-1">
                     <div class="input-group-prepend"><div class="input-group-text">商品分类：</div></div>
-                    <select class="form-control category1">
+<!--                    <select class="form-control category1">-->
+<!--                        <option-->
+<!--                                th:each="c:${categoryList1}"-->
+<!--                                th:value="${c.cateId}"-->
+<!--                                th:text="${c.cateName}"-->
+<!--                                th:selected="${c.cateId == category.parentId}"></option>-->
+<!--                    </select>-->
+                    <select name="spuCategoryId" class="form-control category2">
                         <option
-                                th:each="c:${categoryList1}"
-                                th:value="${c.id}"
-                                th:text="${c.cate_name}"
-                                th:selected="${c.id == category.parent_id}"></option>
-                    </select>
-                    <select name="spu_category_id" class="form-control category2">
-                        <option
-                                th:each="c:${categoryList2}"
-                                th:value="${c.id}"
-                                th:text="${c.cate_name}"
-                                th:selected="${c.id == category.id}"></option>
+                                th:each="c:${categoryList}"
+                                th:value="${c.cateId}"
+                                th:text="${c.cateName}"
+                                th:selected="${c.cateId == category.parentId}"></option>
                     </select>
                 </div>
 
                 <div class="my-1">
-                    <textarea rows="4" id="spu_introduction" name="spu_introduction"  placeholder="商品介绍" th:text="${spu.spu_introduction}"></textarea>
+                    <textarea rows="4" id="spu_introduction" name="spuIntroduction"  placeholder="商品介绍" th:text="${spu.spuIntroduction}"></textarea>
                 </div>
 
                 <!--  /spu 商品表对应的控件   -->
@@ -186,13 +186,13 @@
                             <div class="col-4">
                                 <div class="input-group">
                                     <div class="input-group-prepend"><div class="input-group-text">规格名称：</div></div>
-                                    <input type="text" th:name="'skuUpdateBoList['+${sku_status.index}+'].sku_name'" class="form-control sku_name" placeholder="规格名称" th:value="${sku.sku_name}" />
+                                    <input type="text" th:name="'skuUpdateBoList['+${sku_status.index}+'].sku_name'" class="form-control sku_name" placeholder="规格名称" th:value="${sku.skuName}" />
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="input-group">
                                     <div class="input-group-prepend"><div class="input-group-text">规格排序：</div></div>
-                                    <input type="text" th:name="'skuUpdateBoList['+${sku_status.index}+'].sortno'" class="form-control sortno" placeholder="规格排序" th:value="${sku.sortno}"/>
+                                    <input type="text" th:name="'skuUpdateBoList['+${sku_status.index}+'].sortno'" class="form-control sortno" placeholder="规格排序" th:value="${sku.sortNo}"/>
                                 </div>
                             </div>
                             <div class="col-2">

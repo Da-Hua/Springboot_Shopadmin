@@ -3,7 +3,6 @@ package com.bwf.service;
 import com.bwf.bean.bo.CategoryAddBo;
 import com.bwf.bean.bo.CategorySearchBo;
 import com.bwf.bean.po.Category;
-import com.bwf.bean.po.Spu;
 import com.bwf.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategoryListBySpuIdList(Long spuId) {
+    public List<Category> getCategoryListBySpuId(Long spuId) {
         return categoryMapper.getCategoryListBySpuId(spuId);
     }
 

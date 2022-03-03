@@ -4,7 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bwf.mapper.CategoryMapper">
-    <select id="getCategoryListByParentId" resultMap="getCategoryListByParentId">
+
+    <resultMap id="Category" type="com.bwf.bean.po.Category">
+        <id property="cateId" column="cate_id"/>
+        <result property="cateName" column="cate_name"/>
+        <result property="cateSort" column="cate_sort"/>
+        <result property="createTime" column="createtime"/>
+        <result property="updateTime" column="updatetime"/>
+        <result property="cateParentId" column="cate_parentid"/>
+    </resultMap>
+
+    <select id="getCategory" resultMap="Category">
         select
             cate_id, cate_name, cate_sort,
             DATE_FORMAT(createtime, '%Y-%m-%d %T'),
@@ -25,31 +35,35 @@
                 cate_sort,cate_id
     </select>
 
-    <resultMap id="getCategoryListByParentId" type="com.bwf.bean.po.Category">
-        <id property="cateId" column="cate_id"/>
-        <result property="cateName" column="cate_name"/>
-        <result property="cateSort" column="cate_sort"/>
-        <result property="createTime" column="createtime"/>
-        <result property="updateTime" column="updatetime"/>
-        <result property="cateParentId" column="cate_parentid"/>
-    </resultMap>
-
-    <select id="getCategoryListBySpuId" resultMap="getCategoryListBySpuId">
+    <select id="getCategoryListBySpuId" resultMap="Category">
         select
             cate_name
         from
              category c
         left join cate_spu cs on c.cate_id = cs.cate_id
-        where cs.spu_id = #{spuIdList}
+        left join spu s on s.spu_id = cs.spu_id
+        <where>
+            <if test="spuId != null and spuId != ''">
+                s.spu_id = #{spuId}
+            </if>
+        </where>
     </select>
 
-    <resultMap id="getCategoryListBySpuId" type="com.bwf.bean.po.Category">
-        <id property="cateId" column="cate_id"/>
-        <result property="cateName" column="cate_name"/>
-        <result property="cateSort" column="cate_sort"/>
-        <result property="createTime" column="createtime"/>
-        <result property="updateTime" column="updatetime"/>
-        <result property="cateParentId" column="cate_parentid"/>
-    </resultMap>
+    <select id="getCategoryListByParentId" resultMap="Category">
+        select *
+        from `category`
+        <where>
+            <choose>
+                <when test="parentId == null">
+                    cate_parentid is null
+                </when>
+                <otherwise>
+                    cate_parentid = #{parentId}
+                </otherwise>
+            </choose>
+        </where>
+        order by
+        cate_sort,cate_id
+    </select>
 
 </mapper>
