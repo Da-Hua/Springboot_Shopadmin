@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface OrderService {
 
-    public List<Order> getOrderList(OrderSearchBo bo);
+    List<Order> getOrderList(OrderSearchBo bo);
 
-    public int saveOrder(OrderSearchBo bo);
+    int saveOrder(OrderSearchBo bo);
 }

@@ -16,13 +16,13 @@ import java.util.List;
 @Mapper
 public interface RoleMapper {
 
-    public List<Role> getRoleList(@Param("bo") RoleSearchBo bo);
+    List<Role> getRoleList(@Param("bo") RoleSearchBo bo);
 
     @Insert("insert into role(role_name) values (#{bo.roleName})")
-    public int addRole(@Param("bo") RoleAddBo bo);
+    int addRole(@Param("bo") RoleAddBo bo);
 
-    public Role getRoleById(@Param("roleId") Integer roleId);
+    Role getRoleById(@Param("roleId") Integer roleId);
 
     @Update("update role set is_delete = 1 where role_id = #{roleId}")
-    public int deleteRole(@Param("roleId") Integer roleId);
+    int deleteRole(@Param("roleId") Integer roleId);
 }

@@ -22,5 +22,5 @@ public interface MenuMapper {
             "INNER JOIN `permission_menu` pm ON p.permission_id = pm.permission_id " +
             "INNER JOIN `menu` m ON pm.menu_id = m.menu_id " +
             "WHERE a.admin_id = #{adminId}")
-    public List<Menu> getMenuListByAdminId(@Param("adminId") int adminId);
+    List<Menu> getMenuListByAdminId(@Param("adminId") int adminId);
 }

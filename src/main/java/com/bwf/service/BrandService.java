@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface BrandService {
 
-    public List<Brand> getBrandList(BrandSearchBo bo);
+    List<Brand> getBrandList(BrandSearchBo bo);
 
-    public int updateBrand(BrandSearchBo bo);
+    int updateBrand(BrandSearchBo bo);
 
-    public int addBrand(BrandAddBo bo);
+    int addBrand(BrandAddBo bo);
 
-    public int deleteBrand(String brandId);
+    int deleteBrand(String brandId);
 }

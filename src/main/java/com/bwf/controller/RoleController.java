@@ -12,6 +12,7 @@ import com.github.pagehelper.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
@@ -71,8 +72,8 @@ public class RoleController {
         return "role/update";
     }
 
-    @RequestMapping("/deleteRole")
-    public String deleteRole(Integer roleId, ModelMap map) {
+    @RequestMapping("/delete/{roleId}")
+    public String deleteRole(@PathVariable Integer roleId, ModelMap map) {
         map.addAttribute("back", "/role/admin");
         if (roleService.deleteRole(roleId) == 1) {
             return "common/success";

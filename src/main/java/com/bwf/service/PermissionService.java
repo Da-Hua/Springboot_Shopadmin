@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface PermissionService {
 
-    public List<Permission> getPermissionList();
+    List<Permission> getPermissionList();
 
 }

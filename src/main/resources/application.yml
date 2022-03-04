@@ -15,6 +15,21 @@ spring:
       max-active: 10
       min-idle: 10
     type: com.alibaba.druid.pool.DruidDataSource
+#  redis:
+#    host: 82.156.194.110
+#    port: 6379
+#    password: 7356421
+#    database: 0
+#    lettuce:
+#      pool:
+#        max-active: 10 #最大连接数
+#        min-idle: 10 #最小连接数
+#  cache:
+#    type: redis
+#    redis:
+#      key-prefix: SA_
+#      time-to-live: 60000 #毫秒，过期时间
+#      cache-null-values: true #是否缓存null值，解决缓存穿透
 mybatis:
   type-aliases-package: com.bwf.bean
   mapper-locations: classpath:mybatis/mapping/*.xml

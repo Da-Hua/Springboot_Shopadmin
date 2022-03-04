@@ -8,10 +8,10 @@
         select role_id roleId, role_name roleName
         from role
         <where>
-            <if test="bo.roleId != null">
+            <if test="bo.roleId != null and bo.roleId != ''">
                 role_id = #{roleId}
             </if>
-            <if test="bo.roleName != null">
+            <if test="bo.roleName != null and bo.roleName != ''">
                 and role_name = #{roleName}
             </if>
                 and is_delete = 0

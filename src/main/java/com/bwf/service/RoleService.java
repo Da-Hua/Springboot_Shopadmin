@@ -12,13 +12,13 @@ import java.util.List;
  */
 public interface RoleService {
 
-    public int addRole(RoleAddBo bo);
+    int addRole(RoleAddBo bo);
 
-    public List<Role> getRoleList(RoleSearchBo bo);
+    List<Role> getRoleList(RoleSearchBo bo);
 
-    public Role getRoleById(Integer roleId);
+    Role getRoleById(Integer roleId);
 
-    public List<Permission> getPermissionList(List<Integer> rolePermissionIdList);
+    List<Permission> getPermissionList(List<Integer> rolePermissionIdList);
 
-    public int deleteRole(Integer roleId);
+    int deleteRole(Integer roleId);
 }

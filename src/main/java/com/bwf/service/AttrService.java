@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface AttrService {
 
-    public List<Attr> getAttrList(AttrSearchBo bo);
+    List<Attr> getAttrList(AttrSearchBo bo);
 }

@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface SkuService {
 
-    public List<Sku> getSkuList(SkuSearchBo bo);
+    List<Sku> getSkuList(SkuSearchBo bo);
 
-    public int updateSku(Long skuId);
+    int updateSku(Long skuId);
 
-    public int addSku(SkuAddBo bo);
+    int addSku(SkuAddBo bo);
 }

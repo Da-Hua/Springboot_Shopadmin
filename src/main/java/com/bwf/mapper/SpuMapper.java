@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface SpuMapper {
 
-    public List<Spu> getSpuList(@Param("bo") SpuSearchBo bo);
+    List<Spu> getSpuList(@Param("bo") SpuSearchBo bo);
 
-    public Spu getSpuBySkuId(Long skuId);
+    Spu getSpuBySkuId(Long skuId);
 }

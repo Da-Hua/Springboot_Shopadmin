@@ -3,9 +3,11 @@ package com.bwf.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.bwf.bean.bo.AdminAddBo;
 import com.bwf.bean.bo.AdminSearchBo;
+import com.bwf.bean.bo.RoleSearchBo;
 import com.bwf.bean.po.Admin;
 import com.bwf.service.AdminService;
 import com.bwf.service.MenuService;
+import com.bwf.service.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class AdminController {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping(value = "/login")
     public String login() {
@@ -70,7 +75,8 @@ public class AdminController {
     }
 
     @RequestMapping("/add")
-    public String add() {
+    public String add(RoleSearchBo bo, ModelMap map) {
+        map.addAttribute("roleList", roleService.getRoleList(bo));
         return "/admin/add";
     }
 
@@ -92,8 +98,9 @@ public class AdminController {
     }
 
     @RequestMapping("/toUpdate")
-    public String toUpdate(AdminSearchBo bo, ModelMap map) {
-        map.addAttribute("adminToUpdate", bo);
+    public String toUpdate(AdminSearchBo asBo, RoleSearchBo rsBo, ModelMap map) {
+        map.addAttribute("roleList", roleService.getRoleList(rsBo));
+        map.addAttribute("adminToUpdate", asBo);
         return "/admin/update";
     }
 

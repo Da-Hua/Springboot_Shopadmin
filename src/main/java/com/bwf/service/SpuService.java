@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface SpuService {
 
-    public List<Spu> getSpuList(SpuSearchBo bo);
+    List<Spu> getSpuList(SpuSearchBo bo);
 
-    public Spu getSpuBySkuId(Long skuId);
+    Spu getSpuBySkuId(Long skuId);
 }

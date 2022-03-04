@@ -16,16 +16,16 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
 
-    public List<Category> getCategoryListByParentId(@Param("parentId") Integer parentId );
+    List<Category> getCategoryListByParentId(@Param("parentId") Integer parentId);
 
     @Insert("insert into category(cate_name, cate_sort, cate_parentid) values()")
-    public int addCategory(@Param("bo") CategoryAddBo bo);
+    int addCategory(@Param("bo") CategoryAddBo bo);
 
     @Select("select " +
             "cate_id cateId," +
             "cate_name cateName " +
             "from category")
-    public List<Category> getCategoryList(@Param("bo") CategorySearchBo bo);
+    List<Category> getCategoryList(@Param("bo") CategorySearchBo bo);
 
-    public List<Category> getCategoryListBySpuId(@Param("spuId") Long spuId);
+    List<Category> getCategoryListBySpuId(@Param("spuId") Long spuId);
 }

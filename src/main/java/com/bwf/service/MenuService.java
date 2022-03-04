@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface MenuService {
 
-    public List<Menu> getMenuListByAdminId(int adminId);
+    List<Menu> getMenuListByAdminId(int adminId);
 
 }

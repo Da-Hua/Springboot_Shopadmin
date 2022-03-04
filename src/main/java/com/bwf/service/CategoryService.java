@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface CategoryService {
 
-    public List<Category> getCategoryListByParentId(Integer parentId );
+    List<Category> getCategoryListByParentId(Integer parentId);
 
-    public List<Category> getCategoryListBySpuId(Long spuId);
+    List<Category> getCategoryListBySpuId(Long spuId);
 
-    public int addCategory(CategoryAddBo bo);
+    int addCategory(CategoryAddBo bo);
 
-    public List<Category> getCategoryList(CategorySearchBo bo);
+    List<Category> getCategoryList(CategorySearchBo bo);
 }

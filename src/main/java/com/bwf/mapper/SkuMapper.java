@@ -15,10 +15,10 @@ import java.util.List;
 @Mapper
 public interface SkuMapper {
 
-    public List<Sku> getSkuList(@Param("bo") SkuSearchBo bo);
+    List<Sku> getSkuList(@Param("bo") SkuSearchBo bo);
 
 
-    public int updateSku(@Param("skuId") Long skuId);
+    int updateSku(@Param("skuId") Long skuId);
 
     @Insert("insert into " +
             "sku(sku_spu_id, sku_name, sortno, sku_originalprice, sku_costprice, sku_price, " +
@@ -27,5 +27,5 @@ public interface SkuMapper {
             "#{bo.skuCostPrice}, #{bo.skuPrice}, #{bo.skuQuantity}, " +
             "#{bo.skuWarningQuantity}, #{bo.skuMaxQuantity}, " +
             "#{bo.createTime}, #{bo.updateTime})")
-    public int addSku(SkuAddBo bo);
+    int addSku(SkuAddBo bo);
 }

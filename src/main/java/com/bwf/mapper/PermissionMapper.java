@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface PermissionMapper {
+
     @Select("select permission_id permissionId, permission_name permissionName, pid from permission")
-    public List<Permission> getPermissionList();
+    List<Permission> getPermissionList();
 }

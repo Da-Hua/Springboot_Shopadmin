@@ -11,16 +11,18 @@ import java.util.List;
  */
 public interface AdminService {
 
-    public Admin loginDo(String username, String password);
+    Admin loginDo(String username, String password);
 
 
-    public List<Admin> getAdminList(AdminSearchBo bo);
+    List<Admin> getAdminList(AdminSearchBo bo);
 
-    public Admin getAdminByName(String adminName);
+    Admin getAdminByName(String adminName);
 
-    public int addAdmin(AdminAddBo bo);
+    int addAdmin(AdminAddBo bo);
 
-    public int updateAdmin(AdminAddBo bo);
+    int updateAdmin(AdminAddBo bo);
 
-    public int deleteAdmin(String adminId);
+    int deleteAdmin(String adminId);
+
+    int addAdminRole(AdminAddBo bo);
 }
