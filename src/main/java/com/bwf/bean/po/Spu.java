@@ -3,6 +3,7 @@ package com.bwf.bean.po;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class Spu {
+public class Spu implements Serializable {
     private Long spuId;
     private String spuName;
     private String spuTitle;

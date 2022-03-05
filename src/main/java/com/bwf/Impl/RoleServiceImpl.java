@@ -1,4 +1,4 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bwf.bean.bo.RoleAddBo;
@@ -7,6 +7,8 @@ import com.bwf.bean.po.Permission;
 import com.bwf.bean.po.Role;
 import com.bwf.bean.vo.State;
 import com.bwf.mapper.RoleMapper;
+import com.bwf.service.PermissionService;
+import com.bwf.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

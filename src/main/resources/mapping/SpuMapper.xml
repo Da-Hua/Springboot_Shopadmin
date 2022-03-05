@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bwf.mapper.SpuMapper">
+    <cache type="com.bwf.cache.RedisCache"/>
     <select id="getSpuList" resultMap="spu">
         select
             s.spu_id, spu_name, spu_title, spu_introduction, spu_unit,

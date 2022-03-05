@@ -5,6 +5,7 @@ import com.bwf.bean.vo.State;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class Permission {
+public class Permission implements Serializable {
 
     private Integer permissionId;
     @JSONField(name = "text")

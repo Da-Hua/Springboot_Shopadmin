@@ -1,9 +1,10 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.bwf.bean.bo.AdminAddBo;
 import com.bwf.bean.bo.AdminSearchBo;
 import com.bwf.bean.po.Admin;
 import com.bwf.mapper.AdminMapper;
+import com.bwf.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

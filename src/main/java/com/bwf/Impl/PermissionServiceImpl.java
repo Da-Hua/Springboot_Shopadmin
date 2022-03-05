@@ -1,7 +1,8 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.bwf.bean.po.Permission;
 import com.bwf.mapper.PermissionMapper;
+import com.bwf.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,9 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.bwf.bean.bo.AttrSearchBo;
 import com.bwf.bean.po.Attr;
 import com.bwf.mapper.AttrMapper;
+import com.bwf.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

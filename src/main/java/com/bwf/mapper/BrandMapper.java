@@ -22,7 +22,7 @@ public interface BrandMapper {
     int deleteBrand(@Param("brandId") String brandId);
 
     @Insert("insert into brand(brand_id, brand_name, brand_introduction, brand_logourl, sortno, createtime, updatetime)" +
-            "values(#{bo.brandId}, #{bo.brandName}, #{bo.brandIntroduction}, 'group1/M00/00/00/59f8ab69N648c77ad.jpg', #{bo.sortNo}," +
+            "values(#{bo.brandId}, #{bo.brandName}, #{bo.brandIntroduction}, 'logo.jpg', #{bo.sortNo}," +
             "#{bo.createTime}, #{bo.updateTime})")
     int addBrand(@Param("bo") BrandAddBo bo);
 }

@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @author Hua
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Sku {
+public class Sku implements Serializable {
     private Long skuId;
     private Long skuSpuId;
     private String skuName;

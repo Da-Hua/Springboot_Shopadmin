@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.mapper.SkuMapper">
+    <cache type="com.bwf.cache.RedisCache"/>
     <select id="getSkuList" resultMap="getSkuList" parameterType="com.bwf.bean.bo.SkuSearchBo">
         select
             sku_id, sku_spu_id, sku_name,

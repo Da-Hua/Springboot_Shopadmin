@@ -1,9 +1,10 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.bwf.bean.bo.SkuAddBo;
 import com.bwf.bean.bo.SkuSearchBo;
 import com.bwf.bean.po.Sku;
 import com.bwf.mapper.SkuMapper;
+import com.bwf.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

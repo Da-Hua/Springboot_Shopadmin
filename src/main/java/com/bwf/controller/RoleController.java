@@ -59,7 +59,7 @@ public class RoleController {
     }
 
     @RequestMapping("/getRoleById")
-    public String getRoleById(int roleId, ModelMap map) {
+    public String getRoleById(Integer roleId, ModelMap map) {
         Role role = roleService.getRoleById(roleId);
         List<Integer> list = null;
         if (StringUtil.isNotEmpty(role.getPermissionId())) {

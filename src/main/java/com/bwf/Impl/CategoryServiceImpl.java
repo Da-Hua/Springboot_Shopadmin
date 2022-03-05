@@ -1,9 +1,10 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.bwf.bean.bo.CategoryAddBo;
 import com.bwf.bean.bo.CategorySearchBo;
 import com.bwf.bean.po.Category;
 import com.bwf.mapper.CategoryMapper;
+import com.bwf.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.mapper.OrderMapper">
+    <cache type="com.bwf.cache.RedisCache"/>
     <resultMap id="getOrderList" type="order">
         <id property="orderId" column="id"/>
         <result property="orderNo" column="order_no"/>

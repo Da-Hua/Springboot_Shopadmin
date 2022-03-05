@@ -3,16 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.mapper.RoleMapper">
+    <cache type="com.bwf.cache.RedisCache"/>
     <select id="getRoleList" parameterType="com.bwf.bean.bo.RoleSearchBo"
             resultType="com.bwf.bean.po.Role">
         select role_id roleId, role_name roleName
         from role
         <where>
             <if test="bo.roleId != null and bo.roleId != ''">
-                role_id = #{roleId}
+                role_id = #{bo.roleId}
             </if>
             <if test="bo.roleName != null and bo.roleName != ''">
-                and role_name = #{roleName}
+                and role_name = #{bo.roleName}
             </if>
                 and is_delete = 0
         </where>

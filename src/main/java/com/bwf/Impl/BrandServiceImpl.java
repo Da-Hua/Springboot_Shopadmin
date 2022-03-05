@@ -1,9 +1,10 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.bwf.bean.bo.BrandAddBo;
 import com.bwf.bean.bo.BrandSearchBo;
 import com.bwf.bean.po.Brand;
 import com.bwf.mapper.BrandMapper;
+import com.bwf.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,18 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public int addBrand(BrandAddBo bo) {
-        bo.setBrandId(String.valueOf(UUID.randomUUID()));
+//        MultipartFile multipartFile = bo.getBrandImage();
+//        final String uploadFileName = multipartFile.getOriginalFilename();
+//        String url = "https://bwf-shopadmin.oss-cn-shanghai.aliyuncs.com/";
+//        LocalDate dir = LocalDate.now();
+//        String objectName = dir + "/" + uploadFileName;
+//        try {
+//            PutObjectResult result = ossClient.putObject("bwf-shopadmin", objectName, multipartFile.getInputStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        bo.setBrandLogoUrl(url + objectName);
+        bo.setBrandId(UUID.randomUUID().toString().replace("-", ""));
         bo.setCreateTime(LocalDateTime.now());
         bo.setUpdateTime(LocalDateTime.now());
         return brandMapper.addBrand(bo);

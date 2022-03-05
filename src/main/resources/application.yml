@@ -7,7 +7,7 @@ spring:
     suffix: .html
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://82.156.194.110:3306/shopadmin?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/shopadmin?serverTimezone=UTC
     username: root
     password: 7356421
     druid:
@@ -15,26 +15,35 @@ spring:
       max-active: 10
       min-idle: 10
     type: com.alibaba.druid.pool.DruidDataSource
-#  redis:
-#    host: 82.156.194.110
-#    port: 6379
-#    password: 7356421
-#    database: 0
-#    lettuce:
-#      pool:
-#        max-active: 10 #最大连接数
-#        min-idle: 10 #最小连接数
-#  cache:
-#    type: redis
-#    redis:
-#      key-prefix: SA_
-#      time-to-live: 60000 #毫秒，过期时间
-#      cache-null-values: true #是否缓存null值，解决缓存穿透
+#  cloud:
+#    alicloud:
+#      oss:
+#        endpoint: https://oss-cn-shanghai.aliyuncs.com
+#        bucket: bwf-shopadmin
+#      access-key: LTAI5tQaeJsoZEhgP4ioyiFn
+#      secret-key: SGnVgXLRtp0IySvZZPYJhuFHZQ8cgO
+  redis:
+    host: localhost
+    port: 6379
+    password: 7356421
+    database: 0
+    lettuce:
+      pool:
+        max-active: 10 #最大连接数
+        min-idle: 10 #最小连接数
+  cache:
+    type: redis
+    redis:
+      key-prefix: SA_
+      cache-null-values: true #是否缓存null值，解决缓存穿透
 mybatis:
+  configuration:
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+    lazy-loading-enabled: true
+    lazy-load-trigger-methods: toString
   type-aliases-package: com.bwf.bean
-  mapper-locations: classpath:mybatis/mapping/*.xml
-  config-location: classpath:mybatis/mybatis-config.xml
-
+  mapper-locations: classpath:mapping/*.xml
 
 pagehelper:
   helper-dialect: mysql

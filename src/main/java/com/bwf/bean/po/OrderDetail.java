@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetail {
+public class OrderDetail implements Serializable {
     private Integer odtailsId;
     private String odtailsName;
     private String odtailsThumbUrl;

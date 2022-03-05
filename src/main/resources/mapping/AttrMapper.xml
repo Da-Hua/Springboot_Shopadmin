@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.mapper.AttrMapper">
+    <cache type="com.bwf.cache.RedisCache"/>
     <resultMap id="getAttrList" type="Attr">
         <id property="keyId" column="key_id"/>
         <result property="keyName" column="key_name"/>

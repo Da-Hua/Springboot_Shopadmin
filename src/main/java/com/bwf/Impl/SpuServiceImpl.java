@@ -1,8 +1,9 @@
-package com.bwf.service;
+package com.bwf.Impl;
 
 import com.bwf.bean.bo.SpuSearchBo;
 import com.bwf.bean.po.Spu;
 import com.bwf.mapper.SpuMapper;
+import com.bwf.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

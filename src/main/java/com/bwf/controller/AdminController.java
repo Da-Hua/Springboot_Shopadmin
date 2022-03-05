@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -90,7 +91,8 @@ public class AdminController {
     @RequestMapping("/save")
     public String save(AdminAddBo bo, Model model) {
         model.addAttribute("back","/admin/admin");
-        if (adminService.addAdmin(bo) == 1) {
+        bo.setAdminId(UUID.randomUUID().toString().replace("-", ""));
+        if (adminService.addAdmin(bo) == 1 && adminService.addAdminRole(bo) == 1) {
             return "common/success";
         } else {
             return "common/error";

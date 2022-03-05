@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class AdminSearchBo {
-    private Integer adminId;
+    private String adminId;
     private String adminName;
     private String adminNickname;
     private int pageNum;

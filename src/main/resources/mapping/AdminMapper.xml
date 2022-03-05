@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.mapper.AdminMapper">
-<!--    <update id="updateAdmin"/>-->
+    <cache type="com.bwf.cache.RedisCache"/>
     <select id="loginDo" resultType="com.bwf.bean.po.Admin">
         select admin_id adminId, admin_name adminName, admin_pass adminPass, admin_nickname adminNickname
         from admin
@@ -15,7 +15,7 @@
         select admin_id adminId, admin_name adminName, admin_pass adminPass, admin_nickname adminNickname
         from admin
         <where>
-            <if test="bo.adminId != null">
+            <if test="bo.adminId != null and bo.adminId != ''">
                 admin_id = #{bo.adminId}
             </if>
             <if test="bo.adminName != null and bo.adminName != '' ">

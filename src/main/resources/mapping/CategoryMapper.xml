@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bwf.mapper.CategoryMapper">
-
+    <cache type="com.bwf.cache.RedisCache"/>
     <resultMap id="Category" type="com.bwf.bean.po.Category">
         <id property="cateId" column="cate_id"/>
         <result property="cateName" column="cate_name"/>

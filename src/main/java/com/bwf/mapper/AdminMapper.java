@@ -22,7 +22,7 @@ public interface AdminMapper {
     @Select("select admin_id adminId, admin_name adminName, admin_pass adminPass, admin_nickname adminNickname from admin where admin_name = #{adminName}")
     Admin getAdminByName(@Param("adminName") String adminName);
 
-    @Insert("insert into admin(admin_name, admin_pass, admin_nickname) values(#{bo.adminName}, #{bo.adminPass}, #{bo.adminNickname})")
+    @Insert("insert into admin(admin_id, admin_name, admin_pass, admin_nickname) values(#{bo.adminId}, #{bo.adminName}, #{bo.adminPass}, #{bo.adminNickname})")
     int addAdmin(@Param("bo") AdminAddBo bo);
 
     @Update("update admin a inner join admin_role ar on a.admin_id = ar.admin_id set admin_name #{bo.adminName}, admin_pass = #{bo.adminPass}, admin_nickname = #{bo.adminNickname}, role_id = #{bo.roleId} where a.admin_id = #{bo.adminId}")
