@@ -36,6 +36,17 @@ spring:
     redis:
       key-prefix: SA_
       cache-null-values: true #是否缓存null值，解决缓存穿透
+  #    热部署
+  devtools:
+    restart:
+      #    是否启用重启
+      enabled: true
+      #    设置重启的目录
+      additional-paths: src/main/java
+      #classpath目录下的WEB-INF文件夹内容修改不重启
+      exclude: WEB-INF/**
+  #   指定程序的配置文件
+  #   profiles: dev
 mybatis:
   configuration:
     cache-enabled: true
