@@ -18,7 +18,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,14 +40,9 @@ public class SpuController {
     public String admin(SpuSearchBo ssBo, BrandSearchBo bsBo, CategorySearchBo csBo, ModelMap map) {
         PageHelper.startPage(ssBo.getPageNum() == 0 ? 1 : ssBo.getPageNum(), ssBo.getPageSize() == 0 ? 5 : ssBo.getPageSize());
         final List<Spu> spuList = spuService.getSpuList(ssBo);
-        Iterator<Spu> iterator = spuList.iterator();
-        while (iterator.hasNext()) {
-            Spu item = iterator.next();
-            item.setCategoryList(categoryService.getCategoryListBySpuId(item.getSpuId()));
+        for (Spu spu : spuList) {
+            spu.setCategoryList(categoryService.getCategoryListBySpuId(spu.getSpuId()));
         }
-//        for (Spu spu : spuList) {
-//            spu.setCategoryList(categoryService.getCategoryListBySpuId(spu.getSpuId()));
-//        }
         final List<Brand> brandList = brandService.getBrandList(bsBo);
         final List<Category> cateList = categoryService.getCategoryList(csBo);
         final PageInfo<Spu> pageInfo = new PageInfo<>(spuList);

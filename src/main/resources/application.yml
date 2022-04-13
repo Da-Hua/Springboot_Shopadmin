@@ -44,7 +44,7 @@ spring:
       #    设置重启的目录
       additional-paths: src/main/java
       #classpath目录下的WEB-INF文件夹内容修改不重启
-      exclude: WEB-INF/**
+      exclude: templates/**
   #   指定程序的配置文件
   #   profiles: dev
 mybatis:
