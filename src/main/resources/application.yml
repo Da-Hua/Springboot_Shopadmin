@@ -24,7 +24,7 @@ spring:
 #      secret-key: SGnVgXLRtp0IySvZZPYJhuFHZQ8cgO
   redis:
     host: 152.67.207.64
-    port: 6379
+    port: 5465
     password: 7356421
     database: 0
     lettuce:
