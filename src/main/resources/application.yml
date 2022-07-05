@@ -7,7 +7,7 @@ spring:
     suffix: .html
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/shopadmin?serverTimezone=UTC
+    url: jdbc:mysql://152.67.207.64:6465/shopadmin?serverTimezone=UTC
     username: root
     password: 7356421
     druid:
@@ -23,7 +23,7 @@ spring:
 #      access-key: LTAI5tQaeJsoZEhgP4ioyiFn
 #      secret-key: SGnVgXLRtp0IySvZZPYJhuFHZQ8cgO
   redis:
-    host: localhost
+    host: 152.67.207.64
     port: 6379
     password: 7356421
     database: 0

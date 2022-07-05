@@ -44,7 +44,7 @@
         <result property="skuMaxQuantity" column="sku_max_quantity"/>
         <result property="createTime" column="DATE_FORMAT(createtime, '%Y-%m-%d %T')"/>
         <result property="updateTime" column="DATE_FORMAT(updatetime, '%Y-%m-%d %T')"/>
-        <association property="spu" javaType="spu">
+        <association property="spu" javaType="com.bwf.bean.po.Spu">
             <id property="spuId" column="spu_id"/>
             <result property="spuName" column="spu_name"/>
         </association>

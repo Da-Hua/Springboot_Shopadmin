@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.mapper.OrderMapper">
     <cache type="com.bwf.cache.RedisCache"/>
-    <resultMap id="getOrderList" type="order">
+    <resultMap id="getOrderList" type="com.bwf.bean.po.Order">
         <id property="orderId" column="id"/>
         <result property="orderNo" column="order_no"/>
         <result property="orderStatus" column="order_status"/>
@@ -21,11 +21,11 @@
         <result property="createTime" column="DATE_FORMAT(o.createtime, '%Y-%m-%d %T')"/>
         <result property="updateTime" column="DATE_FORMAT(o.updatetime, '%Y-%m-%d %T')"/>
         <result property="orderUserId" column="order_user_id"/>
-        <association property="user" javaType="user">
+        <association property="user" javaType="com.bwf.bean.po.User">
             <id property="userId" column="user_id"/>
             <result property="userName" column="user_name"/>
         </association>
-        <association property="orderAddress" javaType="orderAddress">
+        <association property="orderAddress" javaType="com.bwf.bean.po.OrderAddress">
             <id property="oaId" column="id"/>
             <result property="consignee" column="consignee"/>
             <result property="phone" column="phone"/>
@@ -35,7 +35,7 @@
             <result property="address" column="address"/>
             <result property="updateTime" column="DATE_FORMAT(oa.updatetime, '%Y-%m-%d %T')"/>
         </association>
-        <association property="orderDetail" javaType="orderDetail">
+        <association property="orderDetail" javaType="com.bwf.bean.po.OrderDetail">
             <id property="odtailsId" column="id"/>
             <result property="odtailsName" column="odtails_name"/>
             <result property="odtailsThumbUrl" column="odtails_thumburl"/>

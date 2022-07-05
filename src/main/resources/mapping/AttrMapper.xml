@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwf.mapper.AttrMapper">
     <cache type="com.bwf.cache.RedisCache"/>
-    <resultMap id="getAttrList" type="Attr">
+    <resultMap id="getAttrList" type="com.bwf.bean.po.Attr">
         <id property="keyId" column="key_id"/>
         <result property="keyName" column="key_name"/>
         <result property="keyIsSku" column="key_issku"/>
